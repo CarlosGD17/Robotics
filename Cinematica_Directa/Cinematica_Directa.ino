@@ -4,23 +4,17 @@
 //Librerias
 #include <Servo.h>
 
-Servo motor1;
-Servo motor2;
-Servo motor3;
+Servo motor1, motor2, motor3;
 //variables
 float nv = 0;
 // enlaces
 float L1 = 0, L2 = 0, L3 = 0;
-// angulos
-float angle1;
-float angle2;
-float angle3;
+// angulos D
+float angle1, angle2, angle3;
 // coordenadas
-float x;
-float y;
-float rad_angle1;
-float rad_angle2;
-float rad_angle3;
+float x, y;
+// angulos R
+float rad_angle1, rad_angle2, rad_angle3;
 volatile float pi = 3.14159265359;
 
 void setup() {
@@ -32,9 +26,7 @@ void setup() {
   // Configuracion del LED
   pinMode(2, OUTPUT);
   // envia a los servos a su posición inicial
-  motor1.write(0);
-  motor2.write(0);
-  motor3.write(0);
+  posicionMotores(0, 0, 0);
   Serial.println("---------------------------------------------------");
   Serial.println("| Programa para calcular la cinematica directa de  |");
   Serial.println("| un manipulador planar de tres grados de libertad |");
@@ -92,8 +84,7 @@ void loop() {
   //despliega los resultados
   //Serial.println("--->");
   Serial.println();
-  Serial.print("Posicion del elemento final: ");
-  Serial.print("(x, y) = (");
+  Serial.print("Posicion del elemento final: (x, y) = (");
   Serial.print(x); Serial.print(", ");
   Serial.print(y); Serial.println(")");
   digitalWrite(2, HIGH);
