@@ -71,7 +71,7 @@ void loop(){
   
   delay(1000);    
 
-  posicionarMotores(angle1, angle2, angle3); 
+  posicionarMotores(angle1, angle2, angle3);
    
   x1 = L1 * cos(radAngle1);
   y1 = L1 * sin(radAngle1);
@@ -86,14 +86,15 @@ void loop(){
   
   delay(5000);
   digitalWrite(2, LOW);
+  posicionarMotores(0, 0, 0);
   delay(500);
-  
-  
  }
 
 void posicionarMotores(int p1, int p2, int p3){
   motor1.write(p1);
+  delay(200);
   motor2.write(p2);
+  delay(200);
   motor3.write(p3);
 }
 
@@ -139,26 +140,8 @@ void probarAngulos(){
     if((angle1 >= 0 && angle1 <= 180) && 
        (angle2 >= 0 && angle2 <= 180) &&
        (angle3 >= 0 && angle3 <= 180)){
-      /*
-      tempX = L1 * cos(radAngle1) + L2 * cos(radAngle1 + radAngle2) + L3 * cos(radAngle1 + radAngle2 + radAngle3);
-      tempY = L1 * sin(radAngle1) + L2 * sin(radAngle1 + radAngle2) + L3 * sin(radAngle1 + radAngle2 + radAngle3);
-      if(tempX == x && tempY == y){
-        break;
-      }
-      */
       Serial.println(i);
       break;
     }
-    /*
-    if(angle1 > 180){
-    	angle1 = 1.0 * (angle1 % 180.0);
-    }
-    if(angle2 > 180){
-    	angle2 = angle3 % 180.0;
-    }
-    if(angle3 > 180){
-    	angle3 = angle3 % 180.0;
-    }
-    */
   }
 }
