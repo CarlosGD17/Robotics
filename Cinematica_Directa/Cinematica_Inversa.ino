@@ -50,13 +50,11 @@ void setup() {
 void loop(){
   Serial.println("Digite las coordenadas: ");
   Serial.print("   - x: ");
-  while(Serial.available()==0){}
-  x = Serial.parseFloat();
+  x = leerLongitud();
   Serial.println(x);
       
   Serial.print("   - y: ");
-  while(Serial.available()==0){}
-  y = Serial.parseFloat();
+  y = leerLongitud();
   Serial.println(y);
   
   Serial.println();
@@ -120,8 +118,8 @@ float validarCoordenadas(char c){
 
 //Rutina para evitar el valor cero que envia la función parseFloat
 void no_valor() {
-  //while (Serial.available() == 0) {}
-  //nv = Serial.parseFloat();
+  while (Serial.available() == 0) {}
+  nv = Serial.parseFloat();
 }
 
 void probarAngulos(){
