@@ -18,6 +18,8 @@ float x2, y2;
 
 float nv = 0;
 
+float rango;
+
 void setup() {
   motor1.attach(9);
   motor2.attach(10);
@@ -50,19 +52,29 @@ void setup() {
 void loop(){
   Serial.println("Digite las coordenadas: ");
   Serial.print("   - x: ");
-  x = leerLongitud();
+  while(Serial.available()==0){}
+  x = Serial.parseFloat();
   Serial.println(x);
       
   Serial.print("   - y: ");
-  y = leerLongitud();
+  while(Serial.available()==0){}
+  y = Serial.parseFloat();
   Serial.println(y);
   
   Serial.println();
   
-  if((sqrt(x*x + y*y) > L1 + L2 + L3) ||
-    	(x > 0 && y < 0)){
-    Serial.println("**El punto no esta dentro del espacio de trabajo**");
-    loop();
+  if(y >= 0){
+    rango = sqrt(x*x + y*y);
+  	if(rango > L1 + L2 + L3){
+    	Serial.println("**El punto no esta dentro del espacio de trabajo**");
+    	loop();
+  	}
+  } else{
+    rango = sqrt(pow(x+L1, 2) + y*y);
+    if(rango > L2 + L3){
+    	Serial.println("**El punto no esta dentro del espacio de trabajo**");
+    	loop();
+    }
   }
   
   probarAngulos();
@@ -107,8 +119,8 @@ float leerLongitud(){
 }
 
 float validarCoordenadas(char c){
-  int temp = 21;
-  while(temp > 20){
+  int temp = rango + 1;
+  while(temp > rango){
     while(Serial.available() == 0) {}
     temp = Serial.parseFloat();
     no_valor();
@@ -118,12 +130,12 @@ float validarCoordenadas(char c){
 
 //Rutina para evitar el valor cero que envia la función parseFloat
 void no_valor() {
-  while (Serial.available() == 0) {}
-  nv = Serial.parseFloat();
+  //while (Serial.available() == 0) {}
+  //nv = Serial.parseFloat();
 }
 
 void probarAngulos(){
-  float tempX, tempY;
+  // float tempX, tempY;
   for(int i = 0; i <= 540; i=i+5){
     radAngleTotal = (i * pi) / 180;
   	x2 = x - L3 * cos(radAngleTotal);
