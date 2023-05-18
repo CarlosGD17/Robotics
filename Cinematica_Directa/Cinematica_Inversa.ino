@@ -55,11 +55,13 @@ void loop(){
   while(Serial.available()==0){}
   x = Serial.parseFloat();
   Serial.println(x);
+  no_valor();
       
   Serial.print("   - y: ");
   while(Serial.available()==0){}
   y = Serial.parseFloat();
   Serial.println(y);
+  no_valor();
   
   Serial.println();
   
@@ -116,16 +118,6 @@ float leerLongitud(){
     no_valor();  //función para evitar el cero de la captura de teclado
   }
   return l;
-}
-
-float validarCoordenadas(char c){
-  int temp = rango + 1;
-  while(temp > rango){
-    while(Serial.available() == 0) {}
-    temp = Serial.parseFloat();
-    no_valor();
-  }
-  return temp;
 }
 
 //Rutina para evitar el valor cero que envia la función parseFloat
